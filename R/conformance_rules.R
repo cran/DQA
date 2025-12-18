@@ -1,0 +1,74 @@
+
+#' @title Default Conformance Check Rules (Reference)
+#' @description
+#' The `DQA` package provides a suite of built-in rule functions for use with
+#' `conformance_check()`. You can use these rule names directly in the `Conformance_Rule`
+#' column of your metadata dataframe.
+#' @details
+#' Most rules accept the column vector as `x`, and some accept extra parameters
+#' (e.g., `val_num`, `val_lit`) parsed from the `Value` column of your metadata.
+#'
+#' @section General Purpose Rules:
+#' \describe{
+#'   \item{\code{unique_check(x)}}{
+#'     Checks for unique (non-duplicate) values.
+#'   }
+#'   \item{\code{character_check(x)}}{
+#'     Checks for the presence of alphabetic characters.
+#'   }
+#'   \item{\code{email_check(x)}}{
+#'     Checks if values are valid email addresses.
+#'   }
+#'   \item{\code{numeric_check(x)}}{
+#'     Checks if values can be interpreted as numbers.
+#'   }
+#'   \item{\code{integer_check(x)}}{
+#'     Checks if values are integers (whole numbers).
+#'   }
+#'   \item{\code{length_check(x, val_num)}}{
+#'     Checks if string length matches the given value (from the `Value` column).
+#'   }
+#'   \item{\code{category_check(x, val_num, val_ops, val_lit)}}{
+#'     Checks membership in allowed categories (numbers or literals).
+#'   }
+#'   \item{\code{set_check(x, val_lit)}}{
+#'     Checks if value is in a user-defined set (from `Value`).
+#'   }
+#'   \item{\code{not_null_check(x)}}{
+#'     Checks if value is not missing (`NA`).
+#'   }
+#' }
+#'
+#' @section Numeric/Date Rules:
+#' \describe{
+#'   \item{\code{date_check(x, val_lit)}}{
+#'     Checks if value is a valid date (optionally in specified format).
+#'   }
+#'   \item{\code{regex_check(x, val_lit)}}{
+#'     Checks values against a user-supplied regular expression.
+#'   }
+#' }
+#'
+#' @section Computational:
+#' \describe{
+#'   \item{\code{bmi_check(x, val_lit = NULL, val = NULL)}}{
+#'   Checks a BMI column for consistency with the corresponding Weight and Height columns.
+#'   Put your "Weight and Height" columns in the Value column in the metadata for calculation
+#'
+#'   The function reads the column names for weight and height dynamically from the \code{val_lit} argument,
+#'   which is typically provided by the metadata (\code{M_data}) in the \code{Value} column as a comma- or pipe-separated string
+#'   (for example, Weight,Height or Weight|Height; use the actual column names in your dataset).
+#'
+#'   The function automatically detects the unit for height (cm or m) based on the data,
+#'   and allows for custom rounding digits and tolerance via the optional \code{val} argument
+#'   (e.g., \code{val = c(1, 0.01)} for 1 decimal digit and 0.01 tolerance).
+#'
+#'   Returns a logical vector indicating which rows pass the BMI consistency check.
+#' }
+#' }
+#'
+#' @section Notes:
+#' See the actual implementation of these functions in the package by obtaining a copy with `conformance_scaffold_rules()`.
+#'
+#' @name conformance_rules
+NULL
