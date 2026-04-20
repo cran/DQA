@@ -90,9 +90,28 @@ range_check <- function(x, val_num = NULL, ...) {
 
 #' Checks if value matches a date format (default: "YYYY-MM-DD" or custom via val_lit)
 date_check <- function(x, val_lit = NULL) {
-  fmt <- if (!is.null(val_lit) && length(val_lit) > 0) val_lit[1] else "%Y-%m-%d"
-  res <- suppressWarnings(!is.na(as.Date(x, format = fmt)))
-  res[is.na(x)] <- NA
+  fmt <- if(!is.null(val_lit) && length(val_lit) > 0) val_lit[1] else "%Y-%m-%d"
+  res <- logical(length(x))
+  for (i in seq_along(x)) {
+    # استخراج اجزای اصلی
+    splits <- strsplit(fmt, "[^%a-zA-Z]")[[1]]
+    nums <- regmatches(x[i], gregexpr("\\d+", x[i]))[[1]]
+    d <- suppressWarnings(tryCatch(as.Date(x[i], format = fmt), error = function(e) NA))
+    valid <- !is.na(d)
+
+    if(valid) {
+      input_parts <- as.integer(nums)
+      date_parts <- as.POSIXlt(d)
+      is_same <- TRUE
+      if("%Y" %in% splits) is_same <- is_same & (date_parts$year + 1900 == input_parts[which(splits == "%Y")])
+      if("%m" %in% splits) is_same <- is_same & (date_parts$mon + 1 == input_parts[which(splits == "%m")])
+      if("%d" %in% splits) is_same <- is_same & (date_parts$mday == input_parts[which(splits == "%d")])
+      res[i] <- is_same
+    } else {
+      res[i] <- FALSE
+    }
+    if(is.na(x[i])) res[i] <- NA
+  }
   res
 }
 

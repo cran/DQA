@@ -66,7 +66,7 @@
 #'   Gender = c("Male", "Female", "Male", "Female", "Male",
 #'              "Female", "Male", "Female", "Male", "Female"),
 #'   Age = c(25, 42, 31, 55, 29, 38, 45, 22, 60, 33),
-#'   Has_Job = c("Yes", "Yes", "No", "Yes", "Yes", "No", "Yes", "Yes", "No", "Yes"),
+#'   Has_Job = c(NA, "Yes", "No", "Yes", "Yes", "No", "Yes", "Yes", "No", "Yes"),
 #'   Job_Title = c(NA, "Manager", NA, "Analyst", NA, "Student",
 #'                 "Director", "Engineer", NA, "Designer"),
 #'   Job_Satisfaction = c(5, 9, NA, 8, 7, NA, 10, 9, NA, 6),
@@ -155,9 +155,9 @@ check_missing_itemwise <- function(S_data, M_data, var_select = 1:nrow(M_data), 
     }
 
     completed_rows   <-  parent_condition_met & !is_child_na
-    missing_rows     <-  parent_condition_met &  is_child_na
+    missing_rows     <-  parent_condition_met &  is_child_na| (is_parent_na & is_child_na)
     jump_rows        <- !parent_condition_met & !is_parent_na & is_child_na
-    unexpected_rows  <- !parent_condition_met & !is_parent_na & !is_child_na
+    unexpected_rows  <- !parent_condition_met & !is_child_na
 
     completed_n  <- sum(completed_rows)
     miss_n       <- sum(missing_rows)

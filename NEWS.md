@@ -1,5 +1,12 @@
 # DQA
 
+##  0.1.1 (2026-04-18)
+
+### Fixed
+- Fixed bug in Item_Missing_Check()
+
+---
+
 ## 0.1.0 (2025-12-12)
 
 ### Added
@@ -13,4 +20,6 @@
 ### Notes
  - Examples that are time-consuming are wrapped in \donttest{} to keep CRAN checks fast.
  - No special system libraries are required to build this package. On Windows, Rtools is required to build from source.
+ 
+
 ```

@@ -77,7 +77,7 @@ Source_data <- data.frame(
   Gender = c("Male", "Female", "Male", "Female", "Male",
              "Female", "Male", "Female", "Male", "Female"),
   Age = c(25, 42, 31, 55, 29, 38, 45, 22, 60, 33),
-  Has_Job = c("Yes", "Yes", "No", "Yes", "Yes", "No", "Yes", "Yes", "No", "Yes"),
+  Has_Job = c(NA, "Yes", "No", "Yes", "Yes", "No", "Yes", "Yes", "No", "Yes"),
   Job_Title = c(NA, "Manager", NA, "Analyst", NA, "Student",
                 "Director", "Engineer", NA, "Designer"),
   Job_Satisfaction = c(5, 9, NA, 8, 7, NA, 10, 9, NA, 6),
